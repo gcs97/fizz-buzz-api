@@ -12,6 +12,7 @@ Copy the `env.example` into `.env`, updating the values if needed.
 make run            # Run API directly  
 make docker-build   # Build Docker image    
 make docker-run     # Run Docker image
+make test           # Run unit tests
 ```
 
 ## Endpoints

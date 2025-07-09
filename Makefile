@@ -6,3 +6,6 @@ docker-build:
 
 docker-run:
 	docker run -p 8080:8080 --env-file .env fizzbuzz-api
+
+test:
+	go test ./...
