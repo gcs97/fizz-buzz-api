@@ -1,6 +1,7 @@
 # fizz-buzz-api
 
 A simple REST API that generates a custom Fizz Buzz sequence. 
+
 It also includes a statistics endpoint to track the most frequent request.
 
 ## Usage
