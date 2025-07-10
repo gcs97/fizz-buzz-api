@@ -10,14 +10,14 @@ import (
 func resetStats() {
 	mu.Lock()
 	defer mu.Unlock()
-	requestCounts = make(map[FizzBuzzRequest]int)
+	requestCounts = make(map[fizzBuzzRequest]int)
 }
 
 func TestStatsHandler(t *testing.T) {
 	t.Run("Valid request", func(t *testing.T) {
 		resetStats()
 
-		fbReq := FizzBuzzRequest{
+		fbReq := fizzBuzzRequest{
 			Int1:  3,
 			Int2:  5,
 			Limit: 15,

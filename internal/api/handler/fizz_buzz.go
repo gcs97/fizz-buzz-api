@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-type FizzBuzzRequest struct {
+type fizzBuzzRequest struct {
 	Int1  int    `json:"int1"`
 	Int2  int    `json:"int2"`
 	Limit int    `json:"limit"`
@@ -14,7 +14,7 @@ type FizzBuzzRequest struct {
 	Str2  string `json:"str2"`
 }
 
-func (r *FizzBuzzRequest) Validate() []string {
+func (r *fizzBuzzRequest) Validate() []string {
 	var errors []string
 
 	if r.Int1 == 0 {
@@ -36,7 +36,7 @@ func (r *FizzBuzzRequest) Validate() []string {
 	return errors
 }
 
-func (r *FizzBuzzRequest) Compute() []string {
+func (r *fizzBuzzRequest) Compute() []string {
 	result := make([]string, 0, r.Limit)
 	for i := 1; i <= r.Limit; i++ {
 		val := ""
@@ -54,14 +54,14 @@ func (r *FizzBuzzRequest) Compute() []string {
 	return result
 }
 
-type FizzBuzzResponse struct {
+type fizzBuzzResponse struct {
 	Result []string `json:"result,omitempty"`
 	Errors []string `json:"errors,omitempty"`
 }
 
 func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
-	req := FizzBuzzRequest{}
+	req := fizzBuzzRequest{}
 	var err error
 
 	if req.Int1, err = strconv.Atoi(q.Get("int1")); err != nil {
@@ -83,10 +83,10 @@ func FizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 
 	if validationErrors := req.Validate(); len(validationErrors) > 0 {
 		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(FizzBuzzResponse{Errors: validationErrors})
+		json.NewEncoder(w).Encode(fizzBuzzResponse{Errors: validationErrors})
 		return
 	}
 
 	result := req.Compute()
-	json.NewEncoder(w).Encode(FizzBuzzResponse{Result: result})
+	json.NewEncoder(w).Encode(fizzBuzzResponse{Result: result})
 }

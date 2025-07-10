@@ -8,25 +8,25 @@ import (
 
 var (
 	mu            sync.Mutex
-	requestCounts = make(map[FizzBuzzRequest]int)
+	requestCounts = make(map[fizzBuzzRequest]int)
 )
 
-func recordStats(req FizzBuzzRequest) {
+func recordStats(req fizzBuzzRequest) {
 	mu.Lock()
 	defer mu.Unlock()
 	requestCounts[req]++
 }
 
 type statsResponse struct {
-	Parameters FizzBuzzRequest `json:"parameters"`
-	Hits       int             `json:"hits"`
+	Parameters fizzBuzzRequest `json:"parameters,omitempty"`
+	Hits       int             `json:"hits,omitempty"`
 }
 
 func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	mu.Lock()
 	defer mu.Unlock()
 
-	var mostUsed FizzBuzzRequest
+	var mostUsed fizzBuzzRequest
 	maxHits := 0
 	found := false
 
@@ -39,7 +39,9 @@ func StatsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !found {
-		http.Error(w, "no stats available", http.StatusNotFound)
+		w.WriteHeader(http.StatusNotFound)
+		errMsg := map[string]string{"error": "no stats available"}
+		json.NewEncoder(w).Encode(errMsg)
 		return
 	}
 

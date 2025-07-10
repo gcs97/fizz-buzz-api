@@ -17,5 +17,5 @@ make test           # Run unit tests
 
 ## Endpoints
 
-- `/api/v1/fizz-buzz`, requiring the query parameters `int1`, `int2`, `limit`, `str1` and `str2`
-- `/api/v1/stats`
+- `GET /api/v1/fizz-buzz`, requiring the query parameters `int1`, `int2`, `limit`, `str1` and `str2`
+- `GET /api/v1/stats`

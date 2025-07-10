@@ -20,7 +20,7 @@ func TestFizzBuzzHandler(t *testing.T) {
 			t.Errorf("Expected status 200, got %d", rr.Code)
 		}
 
-		var resp FizzBuzzResponse
+		var resp fizzBuzzResponse
 		if err := json.NewDecoder(rr.Body).Decode(&resp); err != nil {
 			t.Fatalf("Failed to decode response: %v", err)
 		}
@@ -54,7 +54,7 @@ func TestFizzBuzzHandler(t *testing.T) {
 			t.Errorf("Expected status 400, got %d", rr.Code)
 		}
 
-		var resp FizzBuzzResponse
+		var resp fizzBuzzResponse
 		json.NewDecoder(rr.Body).Decode(&resp)
 
 		if len(resp.Errors) == 0 {
@@ -73,7 +73,7 @@ func TestFizzBuzzHandler(t *testing.T) {
 			t.Errorf("Expected status 400, got %d", rr.Code)
 		}
 
-		var resp FizzBuzzResponse
+		var resp fizzBuzzResponse
 		json.NewDecoder(rr.Body).Decode(&resp)
 
 		expectedErrors := []string{
